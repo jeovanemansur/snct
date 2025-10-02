@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Consumo de Água</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f0f8ff;
+      color: #333;
+    }
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header img {
+      height: 60px;
+    }
+    header h1 {
+      flex: 1;
+      text-align: center;
+      margin: 0;
+      font-size: 22px;
+    }
+    main {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #0077b6;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0096c7;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .verde { background: #90ee90; }
+    .amarelo { background: #fff176; }
+    .vermelho { background: #ff8a80; }
+    footer {
+      background: #0077b6;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="semanaciencia.png" alt="Logomarca SNCT">
+    <h1>Calculadora de Consumo de Água</h1>
+    <img src="logomarca_perdizes2.png" alt="Logomarca IFTM">
+  </header>
+  
+  <main>
+    <p style="text-align:center; font-weight:bold;">
+      Descubra se você está ajudando o meio ambiente!
+    </p>
+    
+    <form id="formAgua">
+      <label for="banhoQtd">Quantos banhos por semana?</label>
+      <input type="number" id="banhoQtd" placeholder="Ex.: 10" required>
+
+      <label for="banhoMin">Quantos minutos em média cada banho?</label>
+      <input type="number" id="banhoMin" placeholder="Ex.: 10" required>
+
+      <label for="descarga">Descargas por dia:</label>
+      <input type="number" id="descarga" placeholder="Ex.: 5" required>
+
+      <label for="louca">Lavar louça por semana (vezes):</label>
+      <input type="number" id="louca" placeholder="Ex.: 7" required>
+
+      <label for="roupa">Máquina de lavar por semana (vezes):</label>
+      <input type="number" id="roupa" placeholder="Ex.: 3" required>
+
+      <button type="button" onclick="calcular()">Calcular</button>
+    </form>
+
+    <div id="resultado"></div>
+  </main>
+
+  <footer>
+    Site desenvolvido pelos alunos do curso FIC – Programador Web (IFTM)
+  </footer>
+
+  <script>
+    function calcular() {
+      // valores médios em litros
+      const banhoLitros = 7; // por minuto
+      const descargaLitros = 5; 
+      const loucaLitros = 20; 
+      const roupaLitros = 100; 
+
+      // capturar dados
+      let banhoQtd = parseInt(document.getElementById("banhoQtd").value) || 0;
+      let banhoMin = parseInt(document.getElementById("banhoMin").value) || 0;
+      let descarga = parseInt(document.getElementById("descarga").value) || 0;
+      let louca = parseInt(document.getElementById("louca").value) || 0;
+      let roupa = parseInt(document.getElementById("roupa").value) || 0;
+
+      // cálculos
+      let totalBanho = banhoQtd * banhoMin * banhoLitros;
+      let totalDescarga = descarga * 7 * descargaLitros;
+      let totalLouca = louca * loucaLitros;
+      let totalRoupa = roupa * roupaLitros;
+
+      let total = totalBanho + totalDescarga + totalLouca + totalRoupa;
+
+      let resultado = document.getElementById("resultado");
+      resultado.className = ""; // reset
+
+      if (total < 1000) {
+        resultado.classList.add("verde");
+        resultado.innerHTML = `Você consumiu aproximadamente <b>${total} litros</b> nesta semana. 👏<br>
+        Excelente! Seu consumo está dentro do padrão sustentável. Continue assim e ajude a preservar nossos recursos hídricos.`;
+      } else if (total < 2000) {
+        resultado.classList.add("amarelo");
+        resultado.innerHTML = `Você consumiu aproximadamente <b>${total} litros</b> nesta semana. ⚠️<br>
+        Seu consumo está razoável, mas pode melhorar. Que tal reduzir alguns minutos no banho ou economizar na hora de lavar a louça?`;
+      } else {
+        resultado.classList.add("vermelho");
+        resultado.innerHTML = `Você consumiu aproximadamente <b>${total} litros</b> nesta semana. 🚨<br>
+        Consumo elevado! Procure rever seus hábitos para evitar desperdício e proteger o meio ambiente.`;
+      }
+    }
+  </script>
+</body>
+</html>
