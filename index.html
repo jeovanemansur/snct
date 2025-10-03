@@ -164,5 +164,39 @@
     function calcular() {
       const banhoLitros = 7;    // litros por minuto
       const descargaLitros = 5; // litros por descarga
-      const loucaLitros = 20;   // por lavage
+      const loucaLitros = 20;   // por lavagem
+      const roupaLitros = 100;  // por uso da máquina
 
+      let banhoQtd = parseInt(document.getElementById("banhoQtd").value) || 0;
+      let banhoMin = parseInt(document.getElementById("banhoMin").value) || 0;
+      let descarga = parseInt(document.getElementById("descarga").value) || 0;
+      let louca = parseInt(document.getElementById("louca").value) || 0;
+      let roupa = parseInt(document.getElementById("roupa").value) || 0;
+
+      let totalBanho = banhoQtd * banhoMin * banhoLitros;
+      let totalDescarga = descarga * descargaLitros;
+      let totalLouca = louca * loucaLitros;
+      let totalRoupa = roupa * roupaLitros;
+
+      let total = totalBanho + totalDescarga + totalLouca + totalRoupa;
+
+      let resultado = document.getElementById("resultado");
+      resultado.className = "";
+
+      if (total < 200) {
+        resultado.classList.add("verde");
+        resultado.innerHTML = `Você consumiu aproximadamente <b>${total} litros</b> <b>hoje</b>. 👏<br>
+        Excelente! Seu consumo está dentro do padrão sustentável. Continue assim e ajude a preservar nossos recursos hídricos.`;
+      } else if (total < 350) {
+        resultado.classList.add("amarelo");
+        resultado.innerHTML = `Você consumiu aproximadamente <b>${total} litros</b> <b>hoje</b>. ⚠️<br>
+        Seu consumo está razoável, mas pode melhorar. Que tal reduzir alguns minutos no banho ou economizar na hora de lavar a louça?`;
+      } else {
+        resultado.classList.add("vermelho");
+        resultado.innerHTML = `Você consumiu aproximadamente <b>${total} litros</b> <b>hoje</b>. 🚨<br>
+        Consumo elevado! Procure rever seus hábitos para evitar desperdício e proteger o meio ambiente.`;
+      }
+    }
+  </script>
+</body>
+</html>
